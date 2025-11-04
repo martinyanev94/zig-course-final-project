@@ -1,0 +1,11 @@
+const std = @import("std");
+
+pub fn main() void {
+    const number: i32 = 42; // Static typing ensures number is an integer
+    const result = doubleValue(number);
+    std.debug.print("The double of {} is {}\n", .{number, result});
+}
+
+fn doubleValue(value: i32) i32 {
+    return value * 2;
+}
