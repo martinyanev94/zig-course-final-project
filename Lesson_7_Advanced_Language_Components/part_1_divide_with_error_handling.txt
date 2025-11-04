@@ -1,0 +1,17 @@
+const std = @import("std");
+
+pub const DivisionError = error{DivisionByZero};
+
+fn divide(a: f64, b: f64) !f64 {
+    if (b == 0) return DivisionError.DivisionByZero;
+    return a / b;
+}
+
+pub fn main() !void {
+    const result = divide(10.0, 0.0);
+    if (result) |value| {
+        std.debug.print("Result: {}\n", .{value});
+    } else |err| {
+        std.debug.print("Error: {}\n", .{err});
+    }
+}
