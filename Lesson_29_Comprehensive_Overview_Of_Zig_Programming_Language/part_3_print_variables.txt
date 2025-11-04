@@ -1,0 +1,9 @@
+const std = @import("std");
+
+pub fn main() void {
+    const myInt: i32 = 42;
+    const myFloat: f64 = 3.14;
+    const myBool: bool = true;
+
+    std.debug.print("Integer: {}\nFloat: {}\nBoolean: {}\n", .{myInt, myFloat, myBool});
+}
