@@ -1,0 +1,20 @@
+const std = @import("std");
+
+fn readFile(filePath: []const u8) ![]u8 {
+    const file = try std.fs.cwd().openFile(filePath, .{});
+    defer file.close();
+
+    const size = try file.getSize();
+    var buffer: []u8 = try std.heap.page_allocator.alloc(u8, size);
+    const bytesRead = try file.readAll(buffer);
+    return buffer[0..bytesRead];
+}
+
+pub fn main() void {
+    const path = "example.txt";
+    const content = readFile(path) catch |err| {
+        std.debug.print("Error reading file {}: {}\n", .{path, err});
+        return;
+    };
+    std.debug.print("File content: {}\n", .{content});
+}
