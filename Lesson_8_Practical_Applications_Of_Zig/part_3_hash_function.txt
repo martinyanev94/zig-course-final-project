@@ -1,0 +1,15 @@
+const std = @import("std");
+
+pub fn hash(input: []const u8) u32 {
+    var hash_value: u32 = 0;
+    for (input) |byte| {
+        hash_value ^= @intCast(u32, byte) * 31;
+    }
+    return hash_value;
+}
+
+pub fn main() !void {
+    const data = "Hello, Zig!";
+    const hash_result = hash(data);
+    std.debug.print("Hash value: {}\n", .{hash_result});
+}
