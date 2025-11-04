@@ -1,0 +1,18 @@
+const std = @import("std");
+
+fn profile(fn: fn() void) void {
+    const start = std.time.milliTimestamp();
+    fn();
+    const end = std.time.milliTimestamp();
+    std.debug.print("Function execution time: {}ms\n", .{end - start});
+}
+
+fn heavyComputation() void {
+    for (1..=1_000_000) |i| {
+        var _ = i * i;
+    }
+}
+
+pub fn main() void {
+    profile(heavyComputation);
+}
