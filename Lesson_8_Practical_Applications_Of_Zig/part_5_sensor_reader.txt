@@ -1,0 +1,11 @@
+const std = @import("std");
+
+pub fn main() !void {
+    const sensor_reading = read_sensor();
+    std.debug.print("Sensor reading: {}\n", .{sensor_reading});
+}
+
+fn read_sensor() u32 {
+    // Simulate reading sensor data
+    return 42; // Placeholder for real sensor data
+}
