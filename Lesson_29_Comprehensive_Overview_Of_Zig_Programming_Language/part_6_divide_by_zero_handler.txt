@@ -1,0 +1,16 @@
+const std = @import("std");
+
+fn divide(numerator: i32, denominator: i32) !f64 {
+    if (denominator == 0) {
+        return error.DivideByZero;
+    }
+    return @intToFloat(f64, numerator) / @intToFloat(f64, denominator);
+}
+
+pub fn main() void {
+    const result = divide(10, 0);
+    switch (result) {
+        error.DivideByZero => std.debug.print("Cannot divide by zero!\n", .{}),
+        |value| std.debug.print("Result: {}\n", .{value}),
+    }
+}
