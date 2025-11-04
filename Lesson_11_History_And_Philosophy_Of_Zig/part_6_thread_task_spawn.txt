@@ -1,0 +1,21 @@
+const std = @import("std");
+
+pub fn main() void {
+    var group = std.ThreadGroup.init();
+
+    const tasks = [_]void{
+        "Task 1",
+        "Task 2",
+        "Task 3",
+    };
+
+    for (tasks) |task| {
+        group.spawn(taskFunction, task);
+    }
+
+    group.wait();
+}
+
+fn taskFunction(task: *const u8) void {
+    std.debug.print("Running {}\n", .{task});
+}
