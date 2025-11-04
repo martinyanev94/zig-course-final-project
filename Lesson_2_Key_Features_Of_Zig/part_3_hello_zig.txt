@@ -1,0 +1,8 @@
+const std = @import("std");
+
+pub fn main() void {
+    const number: u32 = 10;
+    const message: []const u8 = "Hello, Zig!";
+
+    std.debug.print("{} The number is: {}\n", .{message, number});
+}
