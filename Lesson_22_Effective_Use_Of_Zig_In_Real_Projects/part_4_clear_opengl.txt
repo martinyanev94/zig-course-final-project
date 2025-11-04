@@ -1,0 +1,6 @@
+extern "c" fn glClear(color: u32) void;
+
+pub fn main() void {
+    glClear(0x000000); // Clear with black color
+    std.debug.print("OpenGL clear command executed\n", .{});
+}
