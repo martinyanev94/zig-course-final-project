@@ -1,0 +1,15 @@
+const std = @import("std");
+
+pub fn async_function() !void {
+    // Simulated asynchronous work
+    std.debug.print("Asynchronous work...\n", .{});
+    // ... (however, we can simulate a delay using sleep)
+}
+
+pub fn main() void {
+    const async_result = async_function();
+    switch (async_result) {
+        error => std.debug.print("Error occurred!\n", .{}),
+        |_| std.debug.print("Function executed successfully.\n", .{}),
+    }
+}
