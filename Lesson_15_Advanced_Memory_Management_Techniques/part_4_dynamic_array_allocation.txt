@@ -1,0 +1,24 @@
+const std = @import("std");
+
+fn create_array(allocator: *std.mem.Allocator, size: usize) !*u32 {
+    if (size == 0) {
+        return null; // Size validation
+    }
+    return try allocator.alloc(u32, size);
+}
+
+pub fn main() !void {
+    const allocator = std.heap.page_allocator;
+    
+    const array_ptr = try create_array(allocator, 5);
+    defer allocator.free(array_ptr); // Ensure cleanup
+
+    for (array_ptr) |*item, idx| {
+        item.* = idx + 1; // Initialize
+    }
+    
+    // Output modified values
+    for (array_ptr) |item| {
+        std.debug.print("{} ", .{item});
+    }
+}
