@@ -1,0 +1,18 @@
+pub fn add(a: u32, b: u32) u32 {
+    return a + b;
+}
+const std = @import("std");
+const math = @import("math.zig");
+
+pub fn main() void {
+    const sum = math.add(10, 20);
+    std.debug.print("The sum is {}\n", .{sum});
+}
+const Build = @import("std").build;
+
+pub fn build(b: *Build.Builder) void {
+    const exe = b.addExecutable("example", "main.zig");
+    exe.linkLibC();
+    b.default_step.run();
+}
+zig build run
