@@ -1,0 +1,17 @@
+const std = @import("std");
+
+pub fn main() anyerror!void {
+    const allocator = std.heap.page_allocator;
+
+    // Allocate an array of integers
+    const size = 4;
+    var array = try allocator.alloc(u32, size);
+    defer allocator.free(array);
+
+    // Initialize and access the array
+    for (array) |*value, index| {
+        value.* = index * 2; // Initialize with even numbers
+    }
+
+    std.debug.print("Array contents: {any}\n", .{array});
+}
