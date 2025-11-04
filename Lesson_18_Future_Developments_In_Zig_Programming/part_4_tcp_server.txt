@@ -1,0 +1,14 @@
+const std = @import("std");
+const net = @import("std/net.zig");
+
+pub fn main() void {
+    var listener = try net.StreamServer.listen(.{ .address = net.Address.ipv4("127.0.0.1", 8080) });
+    defer listener.close();
+
+    while (true) {
+        const conn = try listener.accept();
+        defer conn.close();
+        std.debug.print("New connection established!\n", .{});
+        // Handle the connection...
+    }
+}
