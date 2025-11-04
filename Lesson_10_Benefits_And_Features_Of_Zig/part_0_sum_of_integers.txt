@@ -1,0 +1,15 @@
+const std = @import("std");
+
+fn sum(n: u32) u32 {
+    var result: u32 = 0;
+    for (std.range(0, n)) |i| {
+        result += i;
+    }
+    return result;
+}
+
+pub fn main() void {
+    const n = 1_000_000;
+    const total = sum(n);
+    std.debug.print("The sum of the first {} integers is: {}\n", .{n, total});
+}
