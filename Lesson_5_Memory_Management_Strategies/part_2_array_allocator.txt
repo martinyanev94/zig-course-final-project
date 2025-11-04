@@ -1,0 +1,20 @@
+const std = @import("std");
+
+fn createArray(allocator: *std.mem.Allocator, size: usize) ![]u32 {
+    return try allocator.alloc(u32, size);
+}
+
+pub fn main() !void {
+    const allocator = std.heap.page_allocator;
+
+    const size = 10;
+    var arr = try createArray(allocator, size);
+    
+    // Work with array
+    for (arr) |*item, index| {
+        item.* = index * 10; // Filling array with multiples of 10
+    }
+    
+    // Freeing memory
+    allocator.free(arr);
+}
