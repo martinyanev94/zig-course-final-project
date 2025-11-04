@@ -1,0 +1,18 @@
+const std = @import("std");
+
+const Error = error{DivisionByZero};
+
+fn divide(a: f32, b: f32) !f32 {
+    if (b == 0) {
+        return Error.DivisionByZero;
+    }
+    return a / b;
+}
+
+pub fn main() void {
+    const result = divide(10.0, 0.0);
+    switch (result) {
+        Error.DivisionByZero => std.debug.print("Error: Division by zero!\n", .{}),
+        else => std.debug.print("Result: {f}\n", .{result}),
+    }
+}
