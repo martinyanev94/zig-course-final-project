@@ -1,0 +1,20 @@
+const std = @import("std");
+
+pub fn main() !void {
+    const allocator = std.heap.page_allocator;
+
+    var arr: ?*u32 = null; // Pointer initialized to null
+
+    // Allocate memory and defer the cleanup
+    arr = try allocator.alloc(u32, 10);
+    defer if (arr) |ptr| allocator.free(ptr); // Clean up
+
+    for (arr) |*item, index| {
+        item.* = index + 1; // Fill with sample values
+    }
+    
+    // Display the results
+    for (arr) |item| {
+        std.debug.print("{d}\n", .{item});
+    }
+}
