@@ -1,0 +1,8 @@
+const std = @import("std");
+
+pub fn main() void {
+    const x: u32 = 10;
+    const y: u32 = 20;
+    const sum: u32 = x + y;
+    std.debug.print("The sum of {} and {} is {}\n", .{x, y, sum});
+}
