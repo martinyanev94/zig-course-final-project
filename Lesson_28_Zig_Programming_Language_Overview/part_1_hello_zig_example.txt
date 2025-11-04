@@ -1,0 +1,14 @@
+const std = @import("std");
+
+pub fn main() void {
+    std.debug.print("Hello, Zig!\n", .{});
+}
+const std = @import("std");
+
+fn main() !void {
+    var age: u32 = 25; // Unsigned 32-bit integer
+    const name: []const u8 = "Zig"; // Constant string
+    var height: f32 = 1.75; // 32-bit floating point
+
+    std.debug.print("Name: {}, Age: {}, Height: {}\n", .{name, age, height});
+}
