@@ -1,0 +1,13 @@
+const std = @import("std");
+
+pub mod math {
+    pub fn square(x: i32) i32 {
+        return x * x;
+    }
+}
+
+pub fn main() void {
+    const value = 4;
+    const result = math.square(value);
+    std.debug.print("Square of {}: {}\n", .{value, result});
+}
