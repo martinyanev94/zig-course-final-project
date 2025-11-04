@@ -1,0 +1,36 @@
+const std = @import("std");
+
+const CustomAllocator = struct {
+    base: *u8,
+    size: usize,
+    used: usize,
+
+    pub fn alloc(self: *CustomAllocator, size: usize) !*u8 {
+        if (self.used + size > self.size) {
+            return null; // Not enough memory
+        }
+        const result = self.base + self.used;
+        self.used += size;
+        return result;
+    }
+    
+    pub fn free(self: *CustomAllocator, _ptr: *u8) void {
+        // Custom deallocation logic can be applied
+    }
+};
+
+pub fn main() !void {
+    var buffer: [1024]u8 = undefined; // Preallocated buffer
+    var allocator = CustomAllocator{
+        .base = &buffer[0],
+        .size = buffer.len,
+        .used = 0,
+    };
+
+    // Allocate using the custom allocator
+    const ptr = try allocator.alloc(256);
+    std.debug.print("Allocated memory at: {}\n", .{ptr});
+    
+    // Freeing logic will be added as needed
+
+}
