@@ -1,0 +1,13 @@
+const std = @import("std");
+
+pub fn main() void {
+    var allocator = std.heap.page_allocator;
+    const number_size = @sizeOf(u32);
+    
+    const ptr = try allocator.alloc(u32, 1);
+    ptr.* = 42;
+
+    std.debug.print("Number allocated in memory is {}.\n", .{ptr.*});
+    
+    allocator.free(ptr);
+}
