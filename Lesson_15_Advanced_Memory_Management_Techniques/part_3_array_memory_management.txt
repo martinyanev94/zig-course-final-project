@@ -1,0 +1,22 @@
+const std = @import("std");
+
+pub fn main() !void {
+    const allocator = std.heap.page_allocator;
+    
+    const array_ptr = try allocator.alloc(u32, 5);
+    defer allocator.free(array_ptr); // Ensures memory is freed at the end
+
+    for (array_ptr) |*item, idx| {
+        item.* = idx + 1; // Initialize
+    }
+
+    // Process the memory
+    for (array_ptr) |*item| {
+        item.* *= 2; // Double each item
+    }
+
+    // Output modified values
+    for (array_ptr) |item| {
+        std.debug.print("{} ", .{item});
+    }
+}
