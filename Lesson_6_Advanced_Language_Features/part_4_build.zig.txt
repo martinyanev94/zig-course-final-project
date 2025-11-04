@@ -1,0 +1,15 @@
+const std = @import("std");
+
+pub fn build(b: *std.build.Builder) void {
+    const target = b.standardTargetOptions();
+    const mode = b.standardReleaseOptions();
+
+    const exe = b.addExecutable("my_program", "src/main.zig");
+    exe.setTarget(target);
+    exe.setBuildMode(mode);
+    
+    // Uncomment the following line to compile for a different target
+    // exe.setTarget(b.getTarget("x86_64-windows-gnu"));
+
+    b.installArtifact(exe);
+}
