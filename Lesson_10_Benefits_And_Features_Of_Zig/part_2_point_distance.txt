@@ -1,0 +1,18 @@
+const std = @import("std");
+
+const Point = struct {
+    x: i32,
+    y: i32,
+
+    pub fn distanceTo(self: *Point, other: *Point) f64 {
+        return @sqrt(@floatCast(f64, (self.x - other.x) ** 2 + (self.y - other.y) ** 2));
+    }
+};
+
+pub fn main() void {
+    var p1 = Point{ .x = 3, .y = 4 };
+    var p2 = Point{ .x = 0, .y = 0 };
+
+    const distance = p1.distanceTo(&p2);
+    std.debug.print("Distance between points: {any}\n", .{distance});
+}
