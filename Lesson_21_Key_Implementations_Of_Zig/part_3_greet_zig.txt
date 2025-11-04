@@ -1,0 +1,10 @@
+const std = @import("std");
+
+pub fn greet(name: []const u8) void {
+    std.debug.print("Hello, {}!\n", .{name});
+}
+
+// Main module
+pub fn main() void {
+    greet("Zig Programmer");
+}
