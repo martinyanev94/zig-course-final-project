@@ -1,0 +1,30 @@
+const std = @import("std");
+
+async fn producer(ch: *std.EventLoop.Channel(u32)) !void {
+    for (u32 i = 1; i <= 5; i += 1) {
+        try ch.send(i); // Send integers and propagate possible errors
+        std.debug.print("Produced: {}\n", .{i});
+    }
+    ch.close(); // Close the channel
+}
+
+async fn consumer(ch: *std.EventLoop.Channel(u32)) !void {
+    while (true) {
+        const value = try ch.receive(); // Handle potential errors
+        std.debug.print("Consumed: {}\n", .{value});
+    }
+}
+
+pub fn main() !void {
+    const event_loop = std.EventLoop.init();
+
+    const channel = event_loop.createChannel(u32);
+    
+    const prod = event_loop.spawn(async producer(&channel));
+    const cons = event_loop.spawn(async consumer(&channel));
+
+    await prod; // Ensure producer completes
+    await cons; // Ensure consumer completes
+
+    event_loop.run();
+}
