@@ -1,0 +1,14 @@
+const std = @import("std");
+
+fn allocateMemory(size: usize) !*u8 {
+    const allocator = std.heap.page_allocator;
+    return allocator.alloc(u8, size);
+}
+
+pub fn main() !void {
+    const buffer = try allocateMemory(1024); // Allocate 1024 bytes
+    defer std.heap.page_allocator.free(buffer); // Ensure memory is freed
+
+    // Use the buffer...
+    std.memory.memset(buffer, 0, 1024); // Initialize memory to zero
+}
