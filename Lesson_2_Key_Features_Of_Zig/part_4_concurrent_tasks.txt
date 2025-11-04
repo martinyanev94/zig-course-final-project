@@ -1,0 +1,21 @@
+const std = @import("std");
+
+fn task1() void {
+    for (5) |i| {
+        std.debug.print("Task 1: {}\n", .{i});
+    }
+}
+
+fn task2() void {
+    for (5) |i| {
+        std.debug.print("Task 2: {}\n", .{i});
+    }
+}
+
+pub fn main() void {
+    const thr1 = std.Thread.spawn(task1);
+    const thr2 = std.Thread.spawn(task2);
+
+    thr1.wait();
+    thr2.wait();
+}
