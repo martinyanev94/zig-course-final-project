@@ -1,0 +1,17 @@
+const std = @import("std");
+
+pub fn main() anyerror!void {
+    const allocator = std.heap.page_allocator;
+    const size = 64;
+
+    // Manually allocate memory
+    const buffer = try allocator.alloc(u8, size);
+    defer allocator.free(buffer);
+
+    // Utilize the allocated memory
+    for (buffer) |*value, index| {
+        value.* = @intCast(u8, index);
+    }
+
+    std.debug.print("Buffer contents: {any}\n", .{buffer});
+}
