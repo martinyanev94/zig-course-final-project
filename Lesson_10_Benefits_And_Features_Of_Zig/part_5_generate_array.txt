@@ -1,0 +1,9 @@
+const std = @import("std");
+
+const SIZE = 10;
+
+pub fn main() anyerror!void {
+    const array = [SIZE]u32{ for (std.range(0, SIZE)) |i| i * 2 };
+
+    std.debug.print("Compiled-time generated array: {any}\n", .{array});
+}
