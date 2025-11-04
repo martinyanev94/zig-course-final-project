@@ -1,0 +1,15 @@
+const std = @import("std");
+
+pub fn main() !void {
+    var allocator = std.heap.page_allocator;
+    const size = 64;
+
+    var buffer = try allocator.alloc(u8, size);
+    defer allocator.free(buffer);
+
+    for (buffer) |*byte, i| {
+        byte.* = @intCast(u8, i);
+    }
+
+    std.debug.print("Allocated buffer values: {}\n", .{buffer});
+}
