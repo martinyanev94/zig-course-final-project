@@ -1,0 +1,43 @@
+const std = @import("std");
+
+struct SharedBuffer {
+    data: []u8,
+    count: u32,
+}
+
+fn producer(buffer: *SharedBuffer, mutex: *std.builtin.Mutex, cond: *std.builtin.ConditionVariable) void {
+    for (0..5) |i| {
+        mutex.lock();
+        buffer.data[buffer.count] = i; // Produce data
+        buffer.count += 1;
+        std.debug.print("Produced: {}\n", .{i});
+        cond.broadcast(); // Notify any waiting consumers
+        mutex.unlock();
+        std.time.sleep(1 * std.time.second);
+    }
+}
+
+fn consumer(buffer: *SharedBuffer, mutex: *std.builtin.Mutex, cond: *std.builtin.ConditionVariable) void {
+    for (0..5) |i| {
+        mutex.lock();
+        while (buffer.count == 0) {
+            cond.wait(&mutex); // Wait for items to be produced
+        }
+        const item = buffer.data[buffer.count - 1];
+        buffer.count -= 1;
+        std.debug.print("Consumed: {}\n", .{item});
+        mutex.unlock();
+    }
+}
+
+pub fn main() void {
+    var buffer = SharedBuffer{ .data = [_]u8{0, 0, 0, 0, 0}, .count = 0 };
+    var mutex = std.builtin.Mutex.init();
+    var cond = std.builtin.ConditionVariable.init();
+
+    const prod = async producer(&buffer, &mutex, &cond);
+    const cons = async consumer(&buffer, &mutex, &cond);
+
+    await prod;
+    await cons;
+}
