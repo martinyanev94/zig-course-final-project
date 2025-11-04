@@ -1,0 +1,22 @@
+const std = @import("std");
+
+pub fn main() !void {
+    const allocator = std.heap.page_allocator;
+
+    const size = 64;
+    // Allocate an array of integer
+    var arr = try allocator.alloc(u32, size);
+    
+    // Initialize the array
+    for (arr) |*item, index| {
+        item.* = index + 1; // Fill with values 1 to 64
+    }
+
+    // Print the contents of the array
+    for (arr) |item| {
+        std.debug.print("{d}\n", .{item});
+    }
+
+    // Free the allocated memory
+    allocator.free(arr);
+}
