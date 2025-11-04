@@ -1,0 +1,15 @@
+const std = @import("std");
+
+pub fn actor_process() void {
+    const msg = "Hello from the actor!";
+    std.debug.print("{}\n", .{msg});
+}
+
+pub fn main() void {
+    // Example to spawn actors
+    for (0..5) |i| {
+        std.spawn(actor_process) catch |err| {
+            std.debug.print("Failed to spawn actor {}: {}\n", .{i, err});
+        };
+    }
+}
