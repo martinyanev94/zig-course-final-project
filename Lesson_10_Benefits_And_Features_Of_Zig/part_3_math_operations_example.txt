@@ -1,0 +1,15 @@
+// math_operations.zig
+const std = @import("std");
+
+pub fn add(a: i32, b: i32) i32 {
+    return a + b;
+}
+
+// main.zig
+const std = @import("std");
+const math_operations = @import("math_operations.zig");
+
+pub fn main() void {
+    const sum = math_operations.add(5, 7);
+    std.debug.print("The sum is: {any}\n", .{sum});
+}
