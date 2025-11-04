@@ -1,0 +1,10 @@
+const std = @import("std");
+
+fn multiply_values(a: i32, b: i32) i32 {
+    return a * b;
+}
+
+pub fn main() void {
+    const result = multiply_values(4, 5);
+    std.debug.print("Result: {}\n", .{result});
+}
