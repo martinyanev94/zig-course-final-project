@@ -1,0 +1,10 @@
+const std = @import("std");
+
+extern "C" {
+    fn printf(format: *const u8, ...) i32;
+}
+
+pub fn main() void {
+    const message = "Hello from C Library!\n";
+    printf(message);
+}
