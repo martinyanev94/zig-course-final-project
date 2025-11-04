@@ -1,0 +1,14 @@
+const std = @import("std");
+
+fn calculateFactorial(n: usize) usize {
+    if (n == 0) {
+        return 1;
+    } else {
+        return n * calculateFactorial(n - 1);
+    }
+}
+
+pub fn main() void {
+    const result = @compileTime(calculateFactorial(5));
+    std.debug.print("Factorial of 5 is: {d}\n", .{result});
+}
