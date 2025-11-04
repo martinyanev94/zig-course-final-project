@@ -1,0 +1,14 @@
+const std = @import("std");
+
+pub fn main() !void {
+    var allocator = std.heap.page_allocator;
+    const arraySize = 10;
+
+    var array = try allocator.alloc(i32, arraySize);
+    defer allocator.free(array);
+
+    for (array) |*item, index| {
+        item.* = index * 10;
+        std.debug.print("Item {}: {}\n", .{index, item.*});
+    }
+}
