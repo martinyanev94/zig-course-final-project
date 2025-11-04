@@ -1,0 +1,16 @@
+const std = @import("std");
+
+pub fn main() anyerror!void {
+    // Simulated sensor data
+    var sensorData: u32 = 0;
+
+    while (true) {
+        sensorData = read_sensor();
+        std.debug.print("Sensor data: {}\n", .{sensorData});
+        std.time.sleep(1_000_000_000); // Sleep for 1 second
+    }
+}
+
+fn read_sensor() u32 {
+    return  rand() % 100; // Simulates reading random sensor data
+}
