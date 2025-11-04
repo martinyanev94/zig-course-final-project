@@ -1,0 +1,12 @@
+const std = @import("std");
+
+async fn long_running_task() void {
+    std.debug.print("Task started\n", .{});
+    std.time.sleep(1 * std.time.ns_in_s);
+    std.debug.print("Task completed\n", .{});
+}
+
+pub fn main() !void {
+    const actual_task = async long_running_task();
+    await actual_task; // Wait for the task to complete
+}
