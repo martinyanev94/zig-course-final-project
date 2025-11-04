@@ -1,0 +1,26 @@
+const std = @import("std");
+
+pub fn asyncTask1() !void {
+    std.debug.print("Task 1 started\n", .{});
+    // Simulate some work
+    for (std.time.sleep(1_000_000_000)) |i| {
+        std.debug.print("Task 1 working...\n", .{});
+    }
+    std.debug.print("Task 1 completed\n", .{});
+}
+
+pub fn asyncTask2() !void {
+    std.debug.print("Task 2 started\n", .{});
+    for (std.time.sleep(1_000_000_000)) |i| {
+        std.debug.print("Task 2 working...\n", .{});
+    }
+    std.debug.print("Task 2 completed\n", .{});
+}
+
+pub fn main() !void {
+    const executor = std.event.executor();
+    try executor.run(.{
+        asyncTask1(),
+        asyncTask2(),
+    });
+}
