@@ -1,0 +1,7 @@
+const std = @import("std");
+
+pub fn example_function(x: i32) i32 {
+    return x * 2; // Future tooling might suggest defining constants, enhancing readability
+}
+
+// IDE improvements might suggest renaming or type-checking with hints.
