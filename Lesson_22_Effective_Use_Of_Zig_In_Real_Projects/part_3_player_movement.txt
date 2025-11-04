@@ -1,0 +1,23 @@
+const std = @import("std");
+const time = std.time;
+
+const Entity = struct {
+    x: f32,
+    y: f32,
+
+    pub fn move(self: *Entity, dx: f32, dy: f32) void {
+        self.x += dx;
+        self.y += dy;
+    }
+};
+
+pub fn main() void {
+    var player = Entity{ .x = 0, .y = 0 };
+    const start_time = time.nanosecond();
+    while (true) {
+        player.move(1, 0); // Move right each loop
+        std.debug.print("Player Position: ({:.2f}, {:.2f})\n", .{player.x, player.y});
+        // Simulate some frame timing
+        if (time.nanosecond() - start_time >= 1_000_000_000) break;  // exit after 1 second
+    }
+}
