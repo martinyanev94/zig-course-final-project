@@ -1,0 +1,12 @@
+const std = @import("std");
+
+fn task(id: usize) void {
+    std.debug.print("Task {} is running.\n", .{id});
+}
+
+pub fn main() void {
+    const num_tasks = 5;
+    for (num_tasks) |i| {
+        std.thread.spawn(task, i);
+    }
+}
