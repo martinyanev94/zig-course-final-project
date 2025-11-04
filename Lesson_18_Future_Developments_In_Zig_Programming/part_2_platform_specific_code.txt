@@ -1,0 +1,13 @@
+const std = @import("std");
+
+pub fn main() void {
+    const os = @target.os;
+    std.debug.print("Running on {}\n", .{os});
+
+    // Platform-specific code
+    if (os == .windows) {
+        std.debug.print("Windows-specific code\n", .{});
+    } else if (os == .linux) {
+        std.debug.print("Linux-specific code\n", .{});
+    }
+}
