@@ -1,0 +1,16 @@
+const std = @import("std");
+
+const Point = @import("Point.zig");
+
+pub fn main() void {
+    const point = Point(3.0, 4.0);
+    std.debug.print("Point coordinates are ({}, {})\n", .{point.x, point.y});
+}
+const std = @import("std");
+
+pub fn Point(x: f64, y: f64) {} // Simple struct definition.
+
+pub const Point = struct {
+    x: f64,
+    y: f64,
+};
