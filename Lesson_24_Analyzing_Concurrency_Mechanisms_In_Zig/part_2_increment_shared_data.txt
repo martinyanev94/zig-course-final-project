@@ -1,0 +1,26 @@
+const std = @import("std");
+
+struct SharedData {
+    value: u32,
+}
+
+fn increment(data: *SharedData, mutex: *std.builtin.Mutex) void {
+    mutex.lock();
+    defer mutex.unlock();
+
+    data.value += 1;
+    std.debug.print("Incremented value: {}\n", .{data.value});
+}
+
+pub fn main() void {
+    var data = SharedData{ .value = 0 };
+    var mutex = std.builtin.Mutex.init();
+
+    const handle1 = async increment(&data, &mutex);
+    const handle2 = async increment(&data, &mutex);
+
+    await handle1;
+    await handle2;
+
+    std.debug.print("Final value: {}\n", .{data.value});
+}
