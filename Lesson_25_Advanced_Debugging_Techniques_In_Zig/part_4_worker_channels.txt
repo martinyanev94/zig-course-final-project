@@ -1,0 +1,23 @@
+const std = @import("std");
+
+fn worker(id: usize, ch: *std.os.channel(u32)) void {
+    std.debug.print("Worker {} started.\n", .{id});
+    ch.send(id) catch |err| {
+        std.debug.print("Error sending from worker {}: {}\n", .{id, err});
+    };
+    std.debug.print("Worker {} finished.\n", .{id});
+}
+
+pub fn main() void {
+    const ch = std.os.channel(u32).init(0);
+    for (0..5) |i| {
+        std.spawn(worker, i, &ch);
+    }
+    for (0..5) {
+        const result = ch.receive() catch |err| {
+            std.debug.print("Error receiving: {}\n", .{err});
+            return;
+        };
+        std.debug.print("Received from worker: {}\n", .{result});
+    }
+}
