@@ -1,0 +1,28 @@
+const std = @import("std");
+
+async fn producer(ch: *std.EventLoop.Channel(u32)) void {
+    for (u32 i = 1; i <= 5; i += 1) {
+        ch.send(i); // Send integers from 1 to 5
+        std.debug.print("Produced: {}\n", .{i});
+    }
+    ch.close(); // Close the channel when done
+}
+
+async fn consumer(ch: *std.EventLoop.Channel(u32)) void {
+    while (true) {
+        const value = ch.receive();
+        if (value.isError()) break; // Exit if channel is closed
+        std.debug.print("Consumed: {}\n", .{value.*});
+    }
+}
+
+pub fn main() !void {
+    const event_loop = std.EventLoop.init();
+
+    const channel = event_loop.createChannel(u32);
+    
+    event_loop.spawn(async producer(&channel));
+    event_loop.spawn(async consumer(&channel));
+
+    event_loop.run();
+}
