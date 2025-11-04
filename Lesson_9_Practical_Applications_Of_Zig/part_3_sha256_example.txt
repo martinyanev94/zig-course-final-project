@@ -1,0 +1,11 @@
+const std = @import("std");
+const sha256 = @import("std").crypto.sha256;
+
+pub fn main() anyerror!void {
+    const message = "Hello, Zig Cryptography!";
+    var hasher = sha256.Hasher.init();
+    hasher.update(message);
+    const hash = hasher.finalize();
+
+    std.debug.print("SHA-256 hash: {}\n", .{hash});
+}
