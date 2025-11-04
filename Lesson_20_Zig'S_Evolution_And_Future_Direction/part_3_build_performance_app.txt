@@ -1,0 +1,10 @@
+const std = @import("std");
+const Builder = std.build.Builder;
+
+pub fn build(b: *Builder) void {
+    const exe = b.addExecutable("performanceApp", "src/main.zig");
+    exe.setTarget(Builder.Target.x86_64-linux);
+    exe.setBuildMode(Builder.BuildMode.Release);
+    exe.addCSourceFile("performance.c", &[_][]const u8{ "src/performance.c" });
+    b.installExecutable(exe);
+}
