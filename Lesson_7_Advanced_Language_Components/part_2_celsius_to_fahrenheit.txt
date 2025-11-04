@@ -1,0 +1,19 @@
+const std = @import("std");
+
+const Celsius = struct {
+    value: f64,
+
+    pub fn from(value: f64) Celsius {
+        return Celsius{ .value = value };
+    }
+
+    pub fn toFahrenheit(self: Celsius) f64 {
+        return self.value * 9.0 / 5.0 + 32.0;
+    }
+};
+
+pub fn main() !void {
+    const celsius = Celsius.from(25.0);
+    const fahrenheit = celsius.toFahrenheit();
+    std.debug.print("25 Celsius is equal to {} Fahrenheit\n", .{fahrenheit});
+}
