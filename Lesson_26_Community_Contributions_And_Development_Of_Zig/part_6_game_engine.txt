@@ -1,0 +1,19 @@
+const std = @import("std");
+
+pub fn main() void {
+    const engine = Engine.init();
+    engine.run();
+}
+
+const Engine = struct {
+    pub fn init() Engine {
+        // Initialization code...
+        return Engine{};
+    }
+
+    pub fn run(self: *Engine) void {
+        while (true) {
+            // Game loop logic...
+        }
+    }
+};
