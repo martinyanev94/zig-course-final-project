@@ -1,0 +1,19 @@
+// math.zig
+pub const Math = struct {
+    pub fn add(a: u32, b: u32) u32 {
+        return a + b;
+    }
+
+    pub fn subtract(a: u32, b: u32) u32 {
+        return a - b;
+    }
+};
+const std = @import("std");
+const Math = @import("math.zig");
+
+pub fn main() void {
+    const sum = Math.add(10, 5);
+    const difference = Math.subtract(10, 5);
+
+    std.debug.print("Sum: {}\nDifference: {}\n", .{sum, difference});
+}
