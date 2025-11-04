@@ -1,0 +1,26 @@
+const std = @import("std");
+const time = @import("std").time;
+
+pub fn main() anyerror!void {
+    var last_time = time.time_ns();
+    while (true) {
+        const current_time = time.time_ns();
+        const delta_time = current_time - last_time;
+        last_time = current_time;
+
+        // Update game state
+        update(delta_time);
+        // Render game state
+        render();
+    }
+}
+
+fn update(delta_time: u64) void {
+    // Logic to update game state based on delta_time
+    std.debug.print("Updating game with delta time: {}\n", .{delta_time});
+}
+
+fn render() void {
+    // Logic to render game state
+    std.debug.print("Rendering game frame\n", .{});
+}
