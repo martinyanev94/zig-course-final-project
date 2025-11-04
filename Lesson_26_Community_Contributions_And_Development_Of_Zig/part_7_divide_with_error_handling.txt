@@ -1,0 +1,16 @@
+const std = @import("std");
+
+fn divide(a: i32, b: i32) !i32 {
+    if (b == 0) {
+        return error.DivideByZero; // Return an error if b is zero
+    }
+    return a / b;
+}
+
+pub fn main() void {
+    const result = divide(10, 0) catch |err| {
+        std.debug.print("Error occurred: {}\n", .{err});
+        return;
+    };
+    std.debug.print("Result: {}\n", .{result});
+}
