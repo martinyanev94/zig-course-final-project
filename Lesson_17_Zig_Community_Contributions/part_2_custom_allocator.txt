@@ -1,0 +1,26 @@
+const std = @import("std");
+
+const MyAllocator = struct {
+    pub fn allocate(self: *MyAllocator, size: usize) !*u8 {
+        // Custom allocation logic here
+        return std.heap.page_allocator.alloc(size);
+    }
+
+    pub fn deallocate(self: *MyAllocator, ptr: *u8, size: usize) void {
+        // Custom deallocation logic here
+        std.heap.page_allocator.free(ptr, size);
+    }
+};
+
+pub fn main() void {
+    var allocator = MyAllocator{};
+    var alloc_size: usize = 1024;
+
+    const allocation = allocator.allocate(alloc_size) catch |err| {
+        std.debug.print("Allocation failed: {}\n", .{err});
+        return;
+    };
+
+    // Using the allocated memory...
+    allocator.deallocate(allocation, alloc_size);
+}
