@@ -1,0 +1,12 @@
+const std = @import("std");
+
+fn accessArrayElement(arr: []const u32, index: usize) void {
+    std.debug.assert(index < arr.len, "Index out of bounds");
+    std.debug.print("Element at index {} is {}\n", .{index, arr[index]});
+}
+
+pub fn main() void {
+    const myArray = [_]u32{10, 20, 30};
+    accessArrayElement(myArray, 1); // Valid
+    accessArrayElement(myArray, 3); // This will trigger an assertion error
+}
