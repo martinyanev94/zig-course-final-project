@@ -1,0 +1,15 @@
+const std = @import("std");
+
+pub fn main() void {
+    const nums: [5]u32 = [5]u32{1, 2, 3, 4, 5};
+    const sum = computeSum(nums);
+    std.debug.print("Sum: {}\n", .{sum});
+}
+
+fn computeSum(nums: [5]u32) u32 {
+    var total: u32 = 0;
+    for (nums) |num| {
+        total += num;
+    }
+    return total;
+}
