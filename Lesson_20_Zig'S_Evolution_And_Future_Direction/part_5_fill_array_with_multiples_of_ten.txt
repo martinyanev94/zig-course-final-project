@@ -1,0 +1,9 @@
+const std = @import("std");
+
+pub fn main() void {
+    var data: [10]u8 = undefined;
+    for (data) |*value, index| {
+        value.* = @intCast(u8, index * 10); // Fill with multiples of 10
+    }
+    std.debug.print("Data: {0}\n", .{data});
+}
