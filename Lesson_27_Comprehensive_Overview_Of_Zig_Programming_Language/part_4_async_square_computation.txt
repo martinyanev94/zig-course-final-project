@@ -1,0 +1,21 @@
+const std = @import("std");
+const async = std.async;
+
+async fn compute_square(x: u32) u32 {
+    return x * x;
+}
+
+pub fn main() !void {
+    const num_tasks = 5;
+    var tasks: [num_tasks]async.Task(u32) = undefined;
+
+    const executor = async.Executor.init();
+    for (tasks) |*task, idx| {
+        task.* = executor.run(compute_square(idx));
+    }
+
+    for (tasks) |task| {
+        const result = try task.wait();
+        std.debug.print("Square of {} is {}\n", .{task.index, result});
+    }
+}
