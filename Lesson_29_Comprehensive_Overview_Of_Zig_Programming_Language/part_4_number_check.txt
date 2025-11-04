@@ -1,0 +1,17 @@
+const std = @import("std");
+
+pub fn main() void {
+    const number: i32 = 10;
+
+    if (number > 0) {
+        std.debug.print("{} is positive.\n", .{number});
+    } else if (number < 0) {
+        std.debug.print("{} is negative.\n", .{number});
+    } else {
+        std.debug.print("The number is zero.\n", .{});
+    }
+
+    for (i32(1)..=5) |i| {
+        std.debug.print("Counting: {}\n", .{i});
+    }
+}
