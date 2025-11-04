@@ -1,0 +1,9 @@
+const std = @import("std");
+
+// Example of a C function: int add(int a, int b);
+extern "c" fn add(a: c_int, b: c_int) c_int;
+
+pub fn main() void {
+    const result = add(10, 20);
+    std.debug.print("Result from C function: {}\n", .{result});
+}
