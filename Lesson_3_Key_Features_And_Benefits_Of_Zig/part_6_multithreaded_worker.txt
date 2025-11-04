@@ -1,0 +1,20 @@
+const std = @import("std");
+
+fn worker(id: u32) !void {
+    std.debug.print("Worker {} is starting\n", .{id});
+    // Simulated workload
+    // ... 
+}
+
+pub fn main() !void {
+    var workers: [4]std.Thread = undefined;
+    for (i32(i := 0); i < 4; i += 1) {
+        workers[i] = std.Thread.spawn(worker, .{i}) catch |_err| {
+            std.debug.print("Failed to spawn worker {}\n", .{i});
+            return;
+        };
+    }
+    for (i32(i := 0); i < 4; i += 1) {
+        workers[i].join() catch |err| std.debug.print("Worker {:?} failed to join\n", .{err});
+    }
+}
