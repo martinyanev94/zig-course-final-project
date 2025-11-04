@@ -1,0 +1,8 @@
+// test_math_operations.zig
+const std = @import("std");
+const math_operations = @import("math_operations.zig");
+
+test "math addition test" {
+    const result = math_operations.add(5, 3);
+    try std.testing.expect(result == 8);
+}
