@@ -1,0 +1,9 @@
+const std = @import("std");
+
+fn channel_example() void {
+    var channel: [10]u32 = undefined;
+    var head: usize = 0;
+    var tail: usize = 0;
+
+    // Example data flow simulation using the channel...
+}
