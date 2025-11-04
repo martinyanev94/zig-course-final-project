@@ -1,0 +1,8 @@
+const std = @import("std");
+extern fn c_function(x: i32) i32;
+
+// Using C function in Zig
+pub fn main() void {
+    const result = c_function(5);
+    std.debug.print("Result from C function: {}\n", .{result});
+}
