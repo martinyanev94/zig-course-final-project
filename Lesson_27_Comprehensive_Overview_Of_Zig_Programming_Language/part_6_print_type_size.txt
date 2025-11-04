@@ -1,0 +1,11 @@
+const std = @import("std");
+
+pub fn print_size(T: type) void {
+    std.debug.print("Size of type {} is {}\n", .{T, @sizeOf(T)});
+}
+
+pub fn main() void {
+    print_size(u32);
+    print_size(f32);
+    print_size([4]u8);
+}
