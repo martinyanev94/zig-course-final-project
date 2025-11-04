@@ -1,0 +1,22 @@
+const std = @import("std");
+
+fn countdown(n: u32) void {
+    for (n) |i| {
+        std.debug.print("Countdown: {}\n", .{n - i});
+        std.time.sleep(1 * std.time.second);
+    }
+}
+
+pub fn main() void {
+    std.debug.print("Starting countdown...\n", .{});
+    const goroutine = async countdown(5);
+    
+    // Simulating other work in the main thread
+    for (0..3) |i| {
+        std.debug.print("Main thread working: {}\n", .{i});
+        std.time.sleep(500 * std.time.millisecond);
+    }
+
+    await goroutine;
+    std.debug.print("Countdown finished!\n", .{});
+}
