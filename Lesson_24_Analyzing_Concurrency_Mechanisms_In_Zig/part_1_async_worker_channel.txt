@@ -1,0 +1,24 @@
+const std = @import("std");
+
+fn worker(id: u32, sender: *std.builtin.Channel(u32)) void {
+    for (0..5) |i| {
+        std.time.sleep(1 * std.time.second);
+        sender.send(id + i); // Send messages to the channel
+    }
+}
+
+pub fn main() void {
+    const channel = std.builtin.Channel(u32).init();
+    
+    var handle1 = async worker(0, &channel);
+    var handle2 = async worker(1, &channel);
+    
+    // Receiving messages from both goroutines
+    for (0..10) |i| {
+        const value = channel.receive(); // Wait for a message
+        std.debug.print("Received: {}\n", .{value});
+    }
+
+    await handle1;
+    await handle2;
+}
