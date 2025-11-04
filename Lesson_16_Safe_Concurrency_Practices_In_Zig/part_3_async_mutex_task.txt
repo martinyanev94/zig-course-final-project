@@ -1,0 +1,22 @@
+const std = @import("std");
+
+const Mutex = std.Mutex;
+
+async fn task(mutex: *Mutex) void {
+    defer mutex.unlock(); // Ensure to unlock the mutex when done
+    mutex.lock(); // Acquire the lock
+
+    std.debug.print("Task is running\n", .{});
+    std.time.sleep(1 * std.time.ns_in_s);
+    std.debug.print("Task completed\n", .{});
+}
+
+pub fn main() !void {
+    const mutex = Mutex.init();
+
+    const task1 = task(&mutex);
+    const task2 = task(&mutex);
+
+    await task1;
+    await task2;
+}
