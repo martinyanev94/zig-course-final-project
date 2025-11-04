@@ -1,0 +1,20 @@
+const std = @import("std");
+
+fn worker(id: usize) void {
+    std.debug.print("Worker {} is starting...\n", .{id});
+    // Simulate some work
+    std.time.sleep(1 * std.time.ns_per_s);
+    std.debug.print("Worker {} is done!\n", .{id});
+}
+
+pub fn main() void {
+    const workers: usize = 5;
+    const worker_list = [_]fn(usize) void{ worker };
+
+    for (worker_list) |w, i| {
+        std.thread.spawn(w, i);
+    }
+
+    // Optional: Wait for all workers to finish
+    std.debug.print("All workers have been spawned.\n", .{});
+}
