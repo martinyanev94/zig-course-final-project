@@ -1,0 +1,11 @@
+const std = @import("std");
+
+fn debugFunction(x: i32) void {
+    std.debug.print("Entering debugFunction with x: {}\n", .{x});
+    // Perform operations
+    std.debug.print("Exiting debugFunction.\n", .{});
+}
+
+pub fn main() void {
+    debugFunction(10);
+}
