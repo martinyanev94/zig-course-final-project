@@ -1,0 +1,13 @@
+const std = @import("std");
+
+fn divide(numerator: f64, denominator: f64) !f64 {
+    if (denominator == 0) {
+        return error.DivisionByZero;
+    }
+    return numerator / denominator;
+}
+
+pub fn main() !void {
+    const result = try divide(10.0, 2.0);
+    std.debug.print("Result: {}\n", .{result});
+}
