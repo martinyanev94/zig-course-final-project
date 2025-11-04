@@ -1,0 +1,34 @@
+const std = @import("std");
+
+const BlockSize = 16;
+const BlockCount = 1024;
+
+const Allocator = struct {
+    blocks: [BlockCount]u8,
+    free_list: usize,
+
+    pub fn init() Allocator {
+        return Allocator{ .blocks = [_]u8{0} ** BlockCount, .free_list = 0 };
+    }
+
+    pub fn allocate(self: *Allocator) ?*u8 {
+        if (self.free_list >= BlockCount) return null;
+        const block = &self.blocks[self.free_list];
+        self.free_list += 1;
+        return block;
+    }
+
+    pub fn deallocate(self: *Allocator, ptr: *u8) void {
+        // Add your deallocation logic here
+    }
+};
+
+pub fn main() void {
+    var allocator = Allocator.init();
+    const block = allocator.allocate();
+    if (block) |ptr| {
+        std.debug.print("Allocated memory at: {}\n", .{ptr});
+    } else {
+        std.debug.print("Allocation failed.\n", .{});
+    }
+}
