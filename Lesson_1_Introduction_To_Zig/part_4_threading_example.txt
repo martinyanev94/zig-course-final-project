@@ -1,0 +1,17 @@
+const std = @import("std");
+
+fn task1() void {
+    std.debug.print("Task 1 running...\n", .{});
+}
+
+fn task2() void {
+    std.debug.print("Task 2 running...\n", .{});
+}
+
+pub fn main() void {
+    const thread1 = std.Thread.spawn(task1);
+    const thread2 = std.Thread.spawn(task2);
+
+    thread1.wait();
+    thread2.wait();
+}
