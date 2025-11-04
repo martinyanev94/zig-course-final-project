@@ -1,0 +1,19 @@
+const std = @import("std");
+
+fn genArray(comptime size: usize) []u32 {
+    var array: []u32 = undefined;
+    array = std.heap.page_allocator.alloc(u32, size) catch unreachable;
+    
+    for (array) |*item, index| {
+        item.* = @intCast(u32, index); // Fill the array with index values
+    }
+    return array;
+}
+
+pub fn main() void {
+    const arr = genArray(10);
+    for (arr) |item| {
+        std.debug.print("{d} ", .{item});
+    }
+    std.debug.print("\n", .{});
+}
