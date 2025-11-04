@@ -1,0 +1,13 @@
+// math.zig
+pub const Math = struct {
+    pub fn add(a: u32, b: u32) u32 {
+        return a + b;
+    }
+};
+const std = @import("std");
+const Math = @import("math.zig");
+
+pub fn main() void {
+    const sum = Math.add(5, 3);
+    std.debug.print("Sum is {}\n", .{sum});
+}
