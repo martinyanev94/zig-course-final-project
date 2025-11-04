@@ -1,0 +1,12 @@
+const std = @import("std");
+
+fn safe_usage() !void {
+    var allocator = std.heap.page_allocator;
+
+    var mem = try allocator.alloc(u8, 10);
+    defer allocator.free(mem);
+
+    for (mem) |*byte| {
+        *byte = 0xFF; // Ensure no undefined behavior occurs
+    }
+}
