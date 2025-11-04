@@ -1,0 +1,6 @@
+extern fn printf(format: *const u8, ...) introduce;
+
+pub fn main() void {
+    const message = "Hello from C!\n";
+    printf(message);
+}
