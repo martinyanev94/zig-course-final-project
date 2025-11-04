@@ -1,0 +1,23 @@
+const std = @import("std");
+
+async fn task(mutex: *Mutex) void {
+    const timeout = std.time.ns_in_s * 5; // 5 seconds
+    const result = mutex.try_lock(timeout);
+    
+    if (result.isOk()) {
+        defer mutex.unlock();
+        std.debug.print("Task acquired the lock\n", .{});
+    } else {
+        std.debug.print("Task failed to acquire the lock, timeout occurred\n", .{});
+    }
+}
+
+pub fn main() !void {
+    const mutex = Mutex.init();
+
+    const task1 = task(&mutex);
+    const task2 = task(&mutex);
+
+    await task1;
+    await task2;
+}
