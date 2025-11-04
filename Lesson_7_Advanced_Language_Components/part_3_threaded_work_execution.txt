@@ -1,0 +1,25 @@
+const std = @import("std");
+
+fn doWork() !void {
+    std.debug.print("Starting work...\n", .{});
+    // Simulated work delay
+    std.time.sleep(1 * std.time.Nanosecond * 1000000000);
+    std.debug.print("Work completed.\n", .{});
+}
+
+pub fn main() !void {
+    var gpa = std.Thread.Group.init(std.heap.page_allocator);
+    const work_thread = gpa.spawn(doWork) catch {
+        std.debug.print("Failed to spawn thread\n", .{});
+        return;
+    };
+
+    // Wait for the work to complete
+    if (work_thread.wait()) |result| {
+        if (result.isOk()) {
+            std.debug.print("Thread finished successfully.\n", .{});
+        } else {
+            std.debug.print("Thread finished with error: {}\n", .{result.err()});
+        }
+    }
+}
