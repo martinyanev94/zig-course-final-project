@@ -1,0 +1,9 @@
+const std = @import("std");
+
+extern fn cFunction(x: i32) i32;
+
+pub fn main() void {
+    const value = 10;
+    const result = cFunction(value);
+    std.debug.print("Result from C function: {}\n", .{result});
+}
