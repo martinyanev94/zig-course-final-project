@@ -1,0 +1,25 @@
+const std = @import("std");
+
+fn process_data(data: *u32, length: usize) void {
+    for (data) |*item, idx| {
+        item.* *= 2; // Double each item
+    }
+}
+
+pub fn main() !void {
+    const allocator = std.heap.page_allocator;
+    
+    const array_ptr = try allocator.alloc(u32, 5);
+    for (array_ptr) |*item, idx| {
+        item.* = idx + 1; // Initialize
+    }
+    
+    process_data(array_ptr, 5); // Transfer ownership for processing
+    
+    // Print modified values
+    for (array_ptr) |item| {
+        std.debug.print("{} ", .{item});
+    }
+    
+    allocator.free(array_ptr); // Free memory after processing
+}
