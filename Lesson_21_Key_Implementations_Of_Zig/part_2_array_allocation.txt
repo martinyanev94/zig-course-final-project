@@ -1,0 +1,21 @@
+const std = @import("std");
+
+fn allocate_array(size: usize) ?*u32 {
+    var allocator = std.heap.page_allocator;
+    return allocator.allocate(u32, size);
+}
+
+pub fn main() void {
+    const array_ptr = allocate_array(10);
+    if (array_ptr) |arr| {
+        for (arr) |*elem, idx| {
+            elem.* = idx as u32;
+        }
+        std.debug.print("Array allocated and initialized:\n", .{});
+        for (arr) |elem| {
+            std.debug.print("{}\n", .{elem});
+        }
+    } else {
+        std.debug.print("Failed to allocate memory\n", .{});
+    }
+}
