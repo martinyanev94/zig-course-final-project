@@ -1,0 +1,9 @@
+const std = @import("std");
+
+pub fn main() void {
+    const file_path = "example.txt";
+    const file = try std.fs.cwd().openFile(file_path, .{});
+    defer file.close();
+
+    std.debug.print("File opened successfully: {}\n", .{file_path});
+}
