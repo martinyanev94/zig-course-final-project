@@ -1,0 +1,9 @@
+fn ensurePositive(value: i32) void {
+    if (value <= 0) {
+        @compileError("Value must be positive");
+    }
+}
+
+pub fn main() void {
+    ensurePositive(-1); // This will trigger a compile error
+}
