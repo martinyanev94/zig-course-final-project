@@ -1,0 +1,16 @@
+const std = @import("std");
+
+pub fn main() !void {
+    const allocator = std.heap.page_allocator;
+    var mem = try allocator.alloc(u32, 5); // allocate space for 5 u32 integers
+    defer allocator.free(mem); // ensures memory is freed when done
+    
+    for (mem) |*item, idx| {
+        item.* = idx * 2; // initialize with even numbers
+    }
+    
+    for (mem) |item| {
+        std.debug.print("{} ", .{item}); // Print initialized values
+    }
+    std.debug.print("\n", .{});
+}
