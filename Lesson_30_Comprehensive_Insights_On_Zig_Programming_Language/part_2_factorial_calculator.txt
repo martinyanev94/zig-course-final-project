@@ -1,0 +1,14 @@
+const std = @import("std");
+
+pub fn main() void {
+    var allocator = std.heap.page_allocator;
+
+    const number: u32 = 5;
+    const result = factorial(allocator, number);
+    std.debug.print("Factorial of {} is {}\n", .{number, result});
+}
+
+fn factorial(allocator: *std.mem.Allocator, n: u32) u32 {
+    if (n == 0) return 1;
+    return n * factorial(allocator, n - 1);
+}
