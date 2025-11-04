@@ -1,0 +1,11 @@
+const std = @import("std");
+
+fn printTypeInfo(comptime T: type) void {
+    std.debug.print("Size of type: {d}\n", .{@sizeOf(T)});
+    std.debug.print("Align of type: {d}\n", .{@alignOf(T)});
+}
+
+pub fn main() void {
+    printTypeInfo(u32);
+    printTypeInfo(f64);
+}
