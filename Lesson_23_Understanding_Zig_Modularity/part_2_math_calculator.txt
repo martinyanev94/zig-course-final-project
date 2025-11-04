@@ -1,0 +1,11 @@
+// main.zig
+const std = @import("std");
+const math_operations = @import("math_operations.zig");
+
+pub fn main() void {
+    const sum = math_operations.add(5, 3);
+    const product = math_operations.multiply(4, 6);
+    
+    std.debug.print("Sum: {}\n", .{sum});
+    std.debug.print("Product: {}\n", .{product});
+}
